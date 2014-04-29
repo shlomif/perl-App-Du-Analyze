@@ -7,7 +7,7 @@ use autodie;
 
 use File::Spec;
 
-use Test::More tests => 4;
+use Test::More tests => 5;
 
 use Test::Differences qw( eq_or_diff );
 
@@ -95,6 +95,39 @@ EOF
 7512\tcpan
 52012\t.git
 52532\tfc-solve
+EOF
+    );
+
+    # TEST*$test_filter_on_fc_solve
+    test_filter_on_fc_solve(
+        {
+            prefix => '',
+            depth => 2,
+        },
+        <<"EOF", "depth greater than 1 and an empty prefix",
+4\t.git/branches
+8\t.git/info
+16\text-ifaces/kpat
+16\tfc-solve/tests
+16\tTask-FreecellSolver-Testing/lib
+28\tTask-FreecellSolver-Testing/t
+40\t.git/hooks
+120\tfc-solve/docs
+152\text-ifaces/FC-Pro
+168\tcpan/AI-Pathfinding-OptimizeMultiple
+172\tfc-solve/scripts
+232\tfc-solve/arch_doc
+276\tfc-solve/rejects
+392\tfc-solve/benchmarks
+868\tcpan/Games-Solitaire-Verify
+944\t.git/logs
+980\t.git/refs
+2920\tfc-solve/site
+4192\tfc-solve/source
+6472\tcpan/temp-AI-Pathfinding-OptimizeMultiple-system-tests
+6892\twww-solitaire/js-freecell
+44208\tfc-solve/presets
+49780\t.git/objects
 EOF
     );
 }
