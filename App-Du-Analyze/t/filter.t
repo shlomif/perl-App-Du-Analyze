@@ -7,7 +7,7 @@ use autodie;
 
 use File::Spec;
 
-use Test::More tests => 5;
+use Test::More tests => 6;
 
 use Test::Differences qw( eq_or_diff );
 
@@ -128,6 +128,27 @@ EOF
 6892\twww-solitaire/js-freecell
 44208\tfc-solve/presets
 49780\t.git/objects
+EOF
+    );
+
+    # TEST*$test_filter_on_fc_solve
+    test_filter_on_fc_solve(
+        {
+            prefix => 'fc-solve/source',
+            depth => 2,
+        },
+        <<"EOF", "depth greater than 1 and a prefix",
+8\tfc-solve/source/t/dbm
+8\tfc-solve/source/t/old-t
+8\tfc-solve/source/t/scripts
+8\tfc-solve/source/t/config
+8\tfc-solve/source/scripts/gdb
+8\tfc-solve/source/scripts/cmake_pgo_wrapper
+24\tfc-solve/source/scripts/old
+32\tfc-solve/source/scripts/parallel-solve-setup-here
+64\tfc-solve/source/Presets/testing-presets
+116\tfc-solve/source/Presets/presets
+1008\tfc-solve/source/t/t
 EOF
     );
 }
