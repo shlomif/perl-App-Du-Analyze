@@ -5,6 +5,8 @@ use warnings;
 
 use MooX qw/late/;
 
+use List::MoreUtils qw/all/;
+
 has '_prefix' => (isa => 'Str', is => 'ro', init_arg => 'prefix');
 has '_depth' => (isa => 'Int', is => 'ro', init_arg => 'depth');
 has '_should_sort' => (isa => 'Bool', is => 'ro', init_arg => 'should_sort',
@@ -23,27 +25,21 @@ sub filter
 
     $prefix =~ s#/+\z##;
 
-    my $prefix_to_test = "$prefix/";
-    if (! length($prefix))
-    {
-        $prefix_to_test = "";
-    }
+    my @prefix_to_test = split(m#/#, $prefix);
 
     while(my $line = <$in_fh>)
     {
         chomp($line);
-        if (my ($size, $total_path, $path) = $line =~ m#\A(\d+)\t(\./?(.*?))\z#)
+        if (my ($size, $total_path, $path) = $line =~ m#\A(\d+)\t(\.(.*?))\z#)
         {
-            my $path_to_test = $path;
+            my @path_to_test = split(m#/#, $total_path);
+            # Get rid of the ".".
+            shift(@path_to_test);
+
             if (
-                $depth
-                ? (
-                    ( $path_to_test =~ s#\A$prefix_to_test##)
-                    && (($path_to_test =~ tr{/}{/}) == $compare_depth)
-                )
-                : length($prefix)
-                ? ($total_path eq "./$prefix")
-                : ($total_path eq ".")
+                (@path_to_test == @prefix_to_test + $depth)
+                    and
+                (all { $path_to_test[$_] eq $prefix_to_test[$_] } (0 .. $#prefix_to_test))
             )
             {
                 $path =~ s#\A/##;

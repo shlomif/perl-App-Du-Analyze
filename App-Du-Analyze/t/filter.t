@@ -7,7 +7,7 @@ use autodie;
 
 use File::Spec;
 
-use Test::More tests => 3;
+use Test::More tests => 4;
 
 use Test::Differences qw( eq_or_diff );
 
@@ -79,6 +79,22 @@ EOF
 2920\tfc-solve/site
 4192\tfc-solve/source
 44208\tfc-solve/presets
+EOF
+    );
+
+    # TEST*$test_filter_on_fc_solve
+    test_filter_on_fc_solve(
+        {
+            prefix => '',
+            depth => 1,
+        },
+        <<"EOF", "depth 1 and an empty prefix",
+72\tTask-FreecellSolver-Testing
+172\text-ifaces
+6900\twww-solitaire
+7512\tcpan
+52012\t.git
+52532\tfc-solve
 EOF
     );
 }
