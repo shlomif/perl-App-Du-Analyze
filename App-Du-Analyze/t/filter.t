@@ -7,7 +7,7 @@ use autodie;
 
 use File::Spec;
 
-use Test::More tests => 2;
+use Test::More tests => 3;
 
 use Test::Differences qw( eq_or_diff );
 
@@ -60,6 +60,25 @@ EOF
         },
         <<"EOF", "depth 0 and specified prefix",
 52532\tfc-solve
+EOF
+    );
+
+    # TEST*$test_filter_on_fc_solve
+    test_filter_on_fc_solve(
+        {
+            prefix => 'fc-solve',
+            depth => 1,
+        },
+        <<"EOF", "depth 1 and specified prefix",
+16\tfc-solve/tests
+120\tfc-solve/docs
+172\tfc-solve/scripts
+232\tfc-solve/arch_doc
+276\tfc-solve/rejects
+392\tfc-solve/benchmarks
+2920\tfc-solve/site
+4192\tfc-solve/source
+44208\tfc-solve/presets
 EOF
     );
 }
