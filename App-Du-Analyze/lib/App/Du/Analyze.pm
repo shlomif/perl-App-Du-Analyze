@@ -12,6 +12,8 @@ use MooX qw/late/;
 use Getopt::Long qw( GetOptionsFromArray );
 use Pod::Usage;
 
+use App::Du::Analyze::Filter;
+
 has argv => (isa => 'ArrayRef', is => 'rw');
 
 sub run
@@ -27,7 +29,7 @@ sub run
 
     my @argv = @{$self->argv};
 
-    GetOptions(
+    GetOptionsFromArray(
         \@argv,
         "prefix|p=s" => \$prefix,
         "depth|d=n" => \$depth,
