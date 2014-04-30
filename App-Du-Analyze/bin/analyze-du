@@ -7,3 +7,84 @@ use App::Du::Analyze;
 
 App::Du::Analyze->new({argv => [@ARGV]})->run();
 exit(0);
+
+=head1 NAME
+
+analyze-du - analyze the output of C<\du .>
+
+=head1 SYNPOSIS
+
+B<analyse-du.pl> --prefix=progs/ --depth=1 --sort
+B<analyse-du.pl> -p progs/ -d
+
+=head1 DESCRIPTION
+
+This analyses the output of C<\du .> looking for directories with a certain
+prefix, a certain depth and possibly sorting the output by size. It aims to
+aid in finding the most space-consuming components in the directory tree
+on the disk.
+
+One can specify the filename as the last argument, or using the environment
+variable C<ANALYZE_DU_INPUT_FN> . If none of them are specified, it defaults
+to using the standard input (STDIN).
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--prefix> | B<-p>
+
+This specifies a prefix for the directories according which to filter them.
+
+=item B<--depth> | B<-d>
+
+This specifies a depth of the directories and their component numbers.
+
+Defaults to 1.
+
+=item B<--nosort>
+
+When specified, this option instructs not to sort the items according to their
+size.
+
+=item B<--help> B<-h>
+
+Displays the help.
+
+=item B<--man>
+
+Displays the man page.
+
+=item B<--version>
+
+Displays the version.
+
+=back
+
+=head1 EXAMPLE OUTPUT
+
+    $ export ANALYZE_DU_INPUT_FN="$(pwd)/t/data/fc-solve-git-du-output.txt"
+    $ analyze-du -p "fc-solve" -d 1
+    16      fc-solve/tests
+    120     fc-solve/docs
+    172     fc-solve/scripts
+    232     fc-solve/arch_doc
+    276     fc-solve/rejects
+    392     fc-solve/benchmarks
+    2920    fc-solve/site
+    4192    fc-solve/source
+    44208   fc-solve/presets
+
+=head1 CREDITS
+
+Written by Shlomi Fish - L<http://www.shlomifish.org/> .
+
+=head1 COPYRIGHTS & LICENSE
+
+Copyright by Shlomi Fish, 2008. All rights reserved.
+
+This file is licensed under the MIT X11 License:
+
+L<http://www.opensource.org/licenses/mit-license.php>
+
+=cut
