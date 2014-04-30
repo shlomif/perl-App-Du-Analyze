@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use App::Du::Analyze;
+
+App::Du::Analyze->new({argv => [@ARGV]})->run();
+exit(0);
