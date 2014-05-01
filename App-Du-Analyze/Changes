@@ -1,4 +1,9 @@
 Revision history for App-Du-Analyze
 
+v0.0.2      2014-05-01
+    - Change the meta resources/links to point to the actual repository at
+    GitHub.
+        - Thanks to pyon from Freenode for noticing it.
+
 v0.0.1      2014-04-30
     - First version, released on an unsuspecting world
