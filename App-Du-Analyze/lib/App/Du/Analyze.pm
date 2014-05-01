@@ -95,6 +95,13 @@ sub run
 App::Du::Analyze - analyze the output of du and find the most space-consuming
 directories.
 
+=head1 DESCRIPTION
+
+This analyzes the output of C<\du .> looking for directories with a certain
+prefix, a certain depth and possibly sorting the output by size. It aims to
+aid in finding the most space-consuming components in the directory tree
+on the disk.
+
 =head1 NOTE
 
 Everything here is subject to change. The API is for internal use.

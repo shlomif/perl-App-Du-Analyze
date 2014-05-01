@@ -14,12 +14,12 @@ analyze-du - analyze the output of C<\du .>
 
 =head1 SYNPOSIS
 
-B<analyse-du.pl> --prefix=progs/ --depth=1 --sort
-B<analyse-du.pl> -p progs/ -d
+B<analyze-du> --prefix=progs/ --depth=1 --sort
+B<analyze-du> -p progs/ -d
 
 =head1 DESCRIPTION
 
-This analyses the output of C<\du .> looking for directories with a certain
+This analyzes the output of C<\du .> looking for directories with a certain
 prefix, a certain depth and possibly sorting the output by size. It aims to
 aid in finding the most space-consuming components in the directory tree
 on the disk.
