@@ -5,7 +5,7 @@ use warnings;
 
 use autodie;
 
-our $VERSION = '0.0.1';
+our $VERSION = '0.0.2';
 
 use MooX qw/late/;
 
