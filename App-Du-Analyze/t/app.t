@@ -9,9 +9,11 @@ use File::Spec;
 
 use Test::More tests => 12;
 
-use IPC::System::Simple qw( capturex );
 use Test::Differences qw( eq_or_diff );
 
+use Test::Trap qw( trap $trap :flow:stderr(systemsafe):stdout(systemsafe):warn );
+
+use App::Du::Analyze;
 my $input_filename = File::Spec->catfile(File::Spec->curdir, 't', 'data', 'fc-solve-git-du-output.txt');
 
 # TEST:$test_filter_on_fc_solve__proto=1;
@@ -21,14 +23,12 @@ sub test_filter_on_fc_solve__proto
 
     local $Test::Builder::Level = $Test::Builder::Level + 1;
 
-    my $got_output = capturex(
-        $^X,
-        '-Mblib',
-        '-e',
-        'use App::Du::Analyze; App::Du::Analyze->new({argv => [@ARGV]})->run();',
-        '--',
-        @$args,
-    );
+    trap
+    {
+        App::Du::Analyze->new({argv => [@$args]})->run();
+    };
+
+    my $got_output = $trap->stdout;
 
     return eq_or_diff(
         $got_output,
