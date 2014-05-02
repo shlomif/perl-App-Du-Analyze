@@ -1,5 +1,11 @@
 Revision history for App-Du-Analyze
 
+v0.0.3      2014-05-02
+    - Convert t/app.t from IPC::System::Simple to Test::Trap hoping to
+    fix test failures on MS Windows.
+        - we also don't use a separate process now but rather capture
+        STDOUT.
+
 v0.0.2      2014-05-01
     - Change the meta resources/links to point to the actual repository at
     GitHub.
