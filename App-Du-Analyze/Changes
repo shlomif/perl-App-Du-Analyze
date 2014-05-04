@@ -1,5 +1,9 @@
 Revision history for App-Du-Analyze
 
+v0.0.4      2014-05-04
+    - Add minimal prereq on Getopt::Long 2.36 for GetOptionsFromArray.
+        - There were test failures with older Getopt::Long-s.
+
 v0.0.3      2014-05-02
     - Convert t/app.t from IPC::System::Simple to Test::Trap hoping to
     fix test failures on MS Windows.
