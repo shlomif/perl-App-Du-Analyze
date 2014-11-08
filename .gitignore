@@ -2,7 +2,6 @@
 /App-Du-Analyze/.build/
 _build/
 cover_db/
-inc/
 Build
 !Build/
 Build.bat
