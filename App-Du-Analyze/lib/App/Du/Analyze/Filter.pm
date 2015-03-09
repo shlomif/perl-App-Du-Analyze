@@ -3,7 +3,20 @@ package App::Du::Analyze::Filter;
 use strict;
 use warnings;
 
-use List::MoreUtils qw/all/;
+sub _my_all
+{
+    my $cb = shift;
+
+    foreach my $x (@_)
+    {
+        if (not $cb->(local $_ = $x))
+        {
+            return 0;
+        }
+    }
+
+    return 1;
+}
 
 sub new
 {
@@ -95,7 +108,7 @@ sub filter
             if (
                 (@path_to_test == @prefix_to_test + $depth)
                     and
-                (all { $path_to_test[$_] eq $prefix_to_test[$_] } (0 .. $#prefix_to_test))
+                (_my_all (sub { $path_to_test[$_] eq $prefix_to_test[$_] }, (0 .. $#prefix_to_test)))
             )
             {
                 $path =~ s#\A/##;

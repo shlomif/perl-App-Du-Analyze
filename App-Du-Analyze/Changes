@@ -3,6 +3,8 @@ Revision history for App-Du-Analyze
 v0.2.0      Unknown
     - Remove dependency on Moo/MooX/MooX::late.
         - Seemed like an overkill for such a small and simple app.
+    - Remove dependency on List::MoreUtils.
+        - To avoid unnecessary deps.
 
 v0.0.5      2015-01-25
     - Add inc/ to the git repo so minting a new release.
