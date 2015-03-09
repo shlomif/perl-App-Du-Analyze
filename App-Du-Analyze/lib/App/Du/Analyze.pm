@@ -7,14 +7,42 @@ use autodie;
 
 our $VERSION = '0.0.5';
 
-use MooX qw/late/;
-
 use Getopt::Long qw( GetOptionsFromArray );
 use Pod::Usage;
 
 use App::Du::Analyze::Filter;
 
-has argv => (isa => 'ArrayRef', is => 'rw');
+sub argv
+{
+    my $self = shift;
+
+    if (@_)
+    {
+        $self->{argv} = shift;
+    }
+
+    return $self->{argv};
+}
+
+sub new
+{
+    my $class = shift;
+
+    my $self = bless {}, $class;
+
+    $self->_init(@_);
+
+    return $self;
+}
+
+sub _init
+{
+    my ($self, $args) = @_;
+
+    $self->argv($args->{argv});
+
+    return;
+}
 
 sub run
 {
@@ -115,6 +143,10 @@ The constructor. Accepts the @ARGV array as a parameter and parses it.
 =head2 $app->run()
 
 Runs the application.
+
+=head2 $app->argv()
+
+B<For internal use.>
 
 =cut
 

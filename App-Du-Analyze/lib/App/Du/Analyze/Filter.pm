@@ -3,14 +3,70 @@ package App::Du::Analyze::Filter;
 use strict;
 use warnings;
 
-use MooX qw/late/;
-
 use List::MoreUtils qw/all/;
 
-has '_prefix' => (isa => 'Str', is => 'ro', init_arg => 'prefix');
-has '_depth' => (isa => 'Int', is => 'ro', init_arg => 'depth');
-has '_should_sort' => (isa => 'Bool', is => 'ro', init_arg => 'should_sort',
-default => sub { 1; },);
+sub new
+{
+    my $class = shift;
+
+    my $self = bless {}, $class;
+
+    $self->_init(@_);
+
+    return $self;
+}
+
+sub _depth
+{
+    my $self = shift;
+
+    if (@_)
+    {
+        $self->{_depth} = shift;
+    }
+
+    return $self->{_depth};
+}
+
+sub _prefix
+{
+    my $self = shift;
+
+    if (@_)
+    {
+        $self->{_prefix} = shift;
+    }
+
+    return $self->{_prefix};
+}
+
+sub _should_sort
+{
+    my $self = shift;
+
+    if (@_)
+    {
+        $self->{_should_sort} = shift;
+    }
+
+    return $self->{_should_sort};
+}
+
+sub _init
+{
+    my ($self, $args) = @_;
+
+    $self->_prefix($args->{prefix});
+    $self->_depth($args->{depth});
+    $self->_should_sort(1);
+
+    if (exists($args->{should_sort}))
+    {
+        $self->_should_sort($args->{should_sort});
+    }
+
+    return;
+}
 
 sub filter
 {
