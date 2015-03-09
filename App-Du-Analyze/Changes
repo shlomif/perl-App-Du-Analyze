@@ -1,13 +1,13 @@
 Revision history for App-Du-Analyze
 
-v0.2.0      Unknown
+v0.2.0      2015-03-09
     - Remove dependency on Moo/MooX/MooX::late.
         - Seemed like an overkill for such a small and simple app.
     - Remove dependency on List::MoreUtils.
         - To avoid unnecessary deps.
 
 v0.0.5      2015-01-25
-    - Add inc/ to the git repo so minting a new release.
+    - Add inc/ to the git repo, so minting a new release.
 
 v0.0.4      2014-05-04
     - Add minimal prereq on Getopt::Long 2.36 for GetOptionsFromArray.

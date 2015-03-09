@@ -5,7 +5,7 @@ use warnings;
 
 use autodie;
 
-our $VERSION = '0.0.5';
+our $VERSION = '0.2.0';
 
 use Getopt::Long qw( GetOptionsFromArray );
 use Pod::Usage;
