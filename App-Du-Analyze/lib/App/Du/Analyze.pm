@@ -5,6 +5,8 @@ use warnings;
 
 use autodie;
 
+use 5.008;
+
 our $VERSION = '0.2.0';
 
 use Getopt::Long qw( GetOptionsFromArray );
