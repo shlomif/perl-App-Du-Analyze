@@ -3,6 +3,8 @@ Revision history for App-Du-Analyze
 v0.2.1      2015-04-28
     - Specify minimal version of perl to 5.8.x.
         - CPANTS / Kwalitee
+    - Add provides to META.yml.
+        - CPANTS / Kwalitee
 
 v0.2.0      2015-03-09
     - Remove dependency on Moo/MooX/MooX::late.
