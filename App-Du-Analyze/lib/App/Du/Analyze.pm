@@ -7,7 +7,7 @@ use autodie;
 
 use 5.008;
 
-our $VERSION = '0.2.0';
+our $VERSION = '0.2.1';
 
 use Getopt::Long qw( GetOptionsFromArray );
 use Pod::Usage;
