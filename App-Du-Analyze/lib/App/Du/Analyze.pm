@@ -7,8 +7,6 @@ use autodie;
 
 use 5.008;
 
-our $VERSION = 'v0.2.1';
-
 use Getopt::Long qw( GetOptionsFromArray );
 use Pod::Usage;
 
@@ -39,9 +37,9 @@ sub new
 
 sub _init
 {
-    my ($self, $args) = @_;
+    my ( $self, $args ) = @_;
 
-    $self->argv($args->{argv});
+    $self->argv( $args->{argv} );
 
     return;
 }
@@ -50,50 +48,50 @@ sub run
 {
     my ($self) = @_;
 
-    my $prefix = "";
-    my $depth = 1;
-    my $sort = 1;
-    my $man = 0;
-    my $help = 0;
+    my $prefix  = "";
+    my $depth   = 1;
+    my $sort    = 1;
+    my $man     = 0;
+    my $help    = 0;
     my $version = 0;
 
-    my @argv = @{$self->argv};
+    my @argv = @{ $self->argv };
 
     GetOptionsFromArray(
         \@argv,
         "prefix|p=s" => \$prefix,
-        "depth|d=n" => \$depth,
-        "sort" => \$sort,
-        "help|h" => \$help,
-        "man" => \$man,
-        "version" => \$version,
+        "depth|d=n"  => \$depth,
+        "sort"       => \$sort,
+        "help|h"     => \$help,
+        "man"        => \$man,
+        "version"    => \$version,
     ) or pod2usage(2);
 
     if ($help)
     {
-        pod2usage(1)
+        pod2usage(1);
     }
 
     if ($man)
     {
-        pod2usage(-verbose => 2);
+        pod2usage( -verbose => 2 );
     }
 
     if ($version)
     {
-        print "analyze-du.pl version $VERSION\n";
+        print "analyze-du.pl version $App::Du::Analyze::VERSION\n";
         exit(0);
     }
 
     my $in_fh;
 
     my $filename;
-    if (!defined ($filename = $ENV{ANALYZE_DU_INPUT_FN}))
+    if ( !defined( $filename = $ENV{ANALYZE_DU_INPUT_FN} ) )
     {
         $filename = shift(@argv);
     }
 
-    if (!defined($filename))
+    if ( !defined($filename) )
     {
         $in_fh = \*STDIN;
     }
@@ -104,13 +102,13 @@ sub run
 
     App::Du::Analyze::Filter->new(
         {
-            prefix => $prefix,
-            depth => $depth,
+            prefix      => $prefix,
+            depth       => $depth,
             should_sort => $sort,
         }
-    )->filter($in_fh, \*STDOUT);
+    )->filter( $in_fh, \*STDOUT );
 
-    if (defined($filename))
+    if ( defined($filename) )
     {
         close($in_fh);
     }
@@ -149,7 +147,5 @@ Runs the application.
 =head2 $app->argv()
 
 B<For internal use.>
-
-=cut
 
 =cut

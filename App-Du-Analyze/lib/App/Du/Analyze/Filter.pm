@@ -9,7 +9,7 @@ sub _my_all
 
     foreach my $x (@_)
     {
-        if (not $cb->(local $_ = $x))
+        if ( not $cb->( local $_ = $x ) )
         {
             return 0;
         }
@@ -67,15 +67,15 @@ sub _should_sort
 
 sub _init
 {
-    my ($self, $args) = @_;
+    my ( $self, $args ) = @_;
 
-    $self->_prefix($args->{prefix});
-    $self->_depth($args->{depth});
+    $self->_prefix( $args->{prefix} );
+    $self->_depth( $args->{depth} );
     $self->_should_sort(1);
 
-    if (exists($args->{should_sort}))
+    if ( exists( $args->{should_sort} ) )
     {
-        $self->_should_sort($args->{should_sort});
+        $self->_should_sort( $args->{should_sort} );
     }
 
     return;
@@ -83,43 +83,49 @@ sub _init
 
 sub filter
 {
-    my ($self, $in_fh, $out_fh) = @_;
+    my ( $self, $in_fh, $out_fh ) = @_;
 
     my $prefix = $self->_prefix;
-    my $sort = $self->_should_sort;
-    my $depth = $self->_depth;
+    my $sort   = $self->_should_sort;
+    my $depth  = $self->_depth;
 
     my $compare_depth = $depth - 1;
     my @results;
 
     $prefix =~ s#/+\z##;
 
-    my @prefix_to_test = split(m#/#, $prefix);
+    my @prefix_to_test = split( m#/#, $prefix );
 
-    while(my $line = <$in_fh>)
+    while ( my $line = <$in_fh> )
     {
         chomp($line);
-        if (my ($size, $total_path, $path) = $line =~ m#\A(\d+)\t(\.(.*?))\z#)
+        if ( my ( $size, $total_path, $path ) =
+            $line =~ m#\A(\d+)\t(\.(.*?))\z# )
         {
-            my @path_to_test = split(m#/#, $total_path);
+            my @path_to_test = split( m#/#, $total_path );
+
             # Get rid of the ".".
             shift(@path_to_test);
 
             if (
-                (@path_to_test == @prefix_to_test + $depth)
-                    and
-                (_my_all (sub { $path_to_test[$_] eq $prefix_to_test[$_] }, (0 .. $#prefix_to_test)))
-            )
+                ( @path_to_test == @prefix_to_test + $depth )
+                and (
+                    _my_all(
+                        sub { $path_to_test[$_] eq $prefix_to_test[$_] },
+                        ( 0 .. $#prefix_to_test )
+                    )
+                )
+                )
             {
                 $path =~ s#\A/##;
-                push @results, [$path, $size];
+                push @results, [ $path, $size ];
             }
         }
     }
 
     if ($sort)
     {
-        @results = (sort { $a->[1] <=> $b->[1] } @results);
+        @results = ( sort { $a->[1] <=> $b->[1] } @results );
     }
 
     foreach my $r (@results)
@@ -168,4 +174,3 @@ Filter the input from $in_fh (a readonly or readwrite filehandle), which
 is the output of du, and output it to $out_fh .
 
 =cut
-
